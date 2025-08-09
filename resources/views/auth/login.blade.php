@@ -2,124 +2,248 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>A+Bayanihan — Login</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>A+Bayanihan</title>
 
-        @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
-            @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @else
-            <style>
-                /* Fallback minimal styles to avoid crash if Vite isn't running/built */
-                html { font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif; }
-                .hidden { display: none; }
-            </style>
-        @endif
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
+        
         <style>
             :root {
-                --brand-blue: #213D6B;
-                --brand-yellow: #F8B803;
-                --brand-orange: #F07C5B;
-                --cream: #FFF7E9;
-                --panel: #FFF1DD;
+                --primary-blue: #4AA3D8;
+                --primary-yellow: #F8B803;
+                --primary-orange: #FF7B5B;
+                --primary-red: #FF4D4D;
+                --bg-cream: #FFF7E9;
+                --text-dark: #2C2C2C;
+                --border-light: #E5E5E5;
+            }
+            
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: "Instrument Sans", system-ui, sans-serif;
+                min-height: 100vh;
+                display: flex;
+                background: white;
+            }
+            
+            .container {
+                display: flex;
+                width: 100%;
+            }
+            
+            .login-section {
+                flex: 1;
+                padding: 48px;
+                background: white;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .logo-container {
+                margin-bottom: 40px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            
+            .logo-icon {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .logo-text {
+                font-size: 24px;
+                font-weight: 600;
+            }
+            
+            .form-container {
+                width: 100%;
+                max-width: 360px;
+            }
+            
+            h1 {
+                font-size: 32px;
+                margin: 0 0 32px;
+                font-weight: 600;
+                color: var(--text-dark);
+            }
+            
+            .input-field {
+                width: 100%;
+                padding: 16px;
+                background: #F5F8FF;
+                border: 1px solid transparent;
+                border-radius: 12px;
+                margin-bottom: 16px;
+                font-size: 16px;
+                box-sizing: border-box;
+                outline: none;
+                transition: all 0.2s;
+            }
+            
+            .input-field:focus {
+                border-color: var(--primary-blue);
+                background: white;
+            }
+            
+            .password-field {
+                position: relative;
+            }
+            
+            .password-toggle {
+                position: absolute;
+                right: 16px;
+                top: 50%;
+                transform: translateY(-50%);
+                cursor: pointer;
+                opacity: 0.5;
+                transition: opacity 0.2s;
+            }
+            
+            .password-toggle:hover {
+                opacity: 0.8;
+            }
+            
+            .login-button {
+                width: 100%;
+                padding: 16px;
+                background: var(--primary-orange);
+                color: white;
+                border: none;
+                border-radius: 12px;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: opacity 0.2s;
+                margin-top: 8px;
+            }
+            
+            .login-button:hover {
+                opacity: 0.9;
+            }
+            
+            .register-text {
+                margin-top: 24px;
+                text-align: center;
+                color: #666;
+                font-size: 14px;
+            }
+            
+            .register-text a {
+                color: var(--primary-orange);
+                text-decoration: none;
+                font-weight: 500;
+            }
+            
+            .register-text a:hover {
+                text-decoration: underline;
+            }
+            
+            .illustration-section {
+                flex: 1;
+                background: var(--bg-cream);
+                padding: 48px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+            }
+            
+            .illustration-container {
+                position: relative;
+                width: 400px;
+                height: 400px;
+                margin-bottom: 32px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .illustration-image {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+            
+            .illustration-text {
+                font-size: 20px;
+                color: var(--text-dark);
+                font-weight: 500;
+                max-width: 360px;
+                line-height: 1.4;
+                margin: 0;
+            }
+            
+            @media (max-width: 1024px) {
+                .illustration-section {
+                    display: none;
+                }
             }
         </style>
     </head>
-    <body class="min-h-screen bg-[#FFF7E9] text-[#1b1b18] font-sans">
-        <div class="mx-auto max-w-6xl min-h-screen grid grid-cols-1 lg:grid-cols-2">
-            <!-- Left: Form -->
-            <div class="flex items-center justify-center p-8 lg:p-16 bg-white">
-                <div class="w-full max-w-md">
-                    <!-- Logo + Title -->
-                    <div class="flex items-center gap-3 mb-10">
-                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-[var(--panel)] shadow border border-[#e8e2d6]">
-                            <!-- Simple people logo -->
-                            <svg viewBox="0 0 24 24" class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <circle cx="8" cy="8" r="3" fill="#F8B803"></circle>
-                                <circle cx="16" cy="8" r="3" fill="#4AA3D8"></circle>
-                                <circle cx="12" cy="14" r="3" fill="#F07C5B"></circle>
+    <body>
+        <div class="container">
+            <div class="login-section">
+                <div class="logo-container">
+                    <svg class="logo-icon" viewBox="0 0 40 40" fill="none">
+                        <circle cx="15" cy="15" r="12" fill="#4AA3D8"/>
+                        <circle cx="25" cy="15" r="12" fill="#F8B803"/>
+                        <circle cx="20" cy="22" r="10" fill="#FF7B5B"/>
+                    </svg>
+                    <span class="logo-text">
+                        <span style="color: #F8B803;">A+</span>
+                        <span style="color: #213D6B;">Bayanihan</span>
+                    </span>
+                </div>
+                
+                <div class="form-container">
+                    <h1>Welcome, Citizen!</h1>
+                    
+                    <form method="POST" action="/login">
+                        @csrf
+                        <input type="email" class="input-field" name="email" placeholder="j.velandres@sunlogistics.com.ph" required>
+                        
+                        <div class="password-field">
+                            <input type="password" class="input-field" name="password" placeholder="••••••••••••" required>
+                            <svg class="password-toggle" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M10 4C5.5 4 2 7 2 10C2 13 5.5 16 10 16C14.5 16 18 13 18 10C18 7 14.5 4 10 4ZM10 14C7.2 14 5 12.2 5 10C5 7.8 7.2 6 10 6C12.8 6 15 7.8 15 10C15 12.2 12.8 14 10 14ZM10 7.5C8.1 7.5 6.5 8.7 6.5 10C6.5 11.3 8.1 12.5 10 12.5C11.9 12.5 13.5 11.3 13.5 10C13.5 8.7 11.9 7.5 10 7.5Z" fill="currentColor"/>
                             </svg>
                         </div>
-                        <div class="text-2xl font-semibold tracking-tight">
-                            <span class="text-[var(--brand-yellow)]">A+</span><span class="text-[var(--brand-blue)]">Bayanihan</span>
-                        </div>
-                    </div>
-
-                    <h1 class="text-3xl lg:text-4xl font-bold mb-8">Welcome, Citizen!</h1>
-
-                    <form action="#" method="post" class="space-y-5">
-                        @csrf
-                        <div>
-                            <label class="block text-sm mb-2" for="username">Username</label>
-                            <input id="username" name="username" type="text" class="w-full h-12 px-4 rounded-xl border border-[#d9d9d9] focus:border-[var(--brand-blue)] focus:ring-2 focus:ring-[var(--brand-blue)]/20 outline-none" placeholder="Username" />
-                        </div>
-                        <div>
-                            <label class="block text-sm mb-2" for="password">Password</label>
-                            <div class="relative">
-                                <input id="password" name="password" type="password" class="w-full h-12 pr-12 pl-4 rounded-xl border border-[#d9d9d9] focus:border-[var(--brand-blue)] focus:ring-2 focus:ring-[var(--brand-blue)]/20 outline-none" placeholder="Password" />
-                                <button type="button" aria-label="Toggle password" class="absolute inset-y-0 right-0 px-4 text-[#707070]">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5">
-                                        <path d="M2.25 12s3.75-6.75 9.75-6.75 9.75 6.75 9.75 6.75-3.75 6.75-9.75 6.75S2.25 12 2.25 12Z" />
-                                        <circle cx="12" cy="12" r="2.75" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                        <button type="submit" class="w-full h-12 rounded-xl bg-[var(--brand-orange)] text-white font-semibold hover:brightness-95 transition">Log in</button>
+                        
+                        <button type="submit" class="login-button">Log in</button>
                     </form>
-
-                    <p class="mt-6 text-sm text-center text-[#6b6b6b]">
-                        Don't have an Account?
-                        <a href="/register" class="text-[var(--brand-orange)] font-medium hover:underline">Register Here</a>
+                    
+                    <p class="register-text">
+                        Don't have an Account? <a href="/register">Register Here</a>
                     </p>
                 </div>
             </div>
-
-            <!-- Right: Illustration -->
-            <div class="hidden lg:flex items-center justify-center p-8 bg-[var(--cream)]">
-                <div class="w-full max-w-xl">
-                    <div class="relative mx-auto aspect-[4/3] rounded-2xl bg-[var(--panel)] border border-[#eddcc2] grid place-items-center overflow-hidden">
-                        <!-- Simple illustrated composition to match layout vibe -->
-                        <div class="absolute inset-0 grid grid-cols-4 grid-rows-4">
-                            <div class="col-start-1 row-start-2 place-self-center w-28 h-28 rounded-full bg-white border border-[#e8e2d6] grid place-items-center">
-                                <div class="w-10 h-10 rounded-lg bg-[var(--cream)] border border-[#e8e2d6] grid place-items-center text-[var(--brand-orange)] font-bold">+</div>
-                            </div>
-                            <div class="col-start-4 row-start-2 place-self-center w-28 h-28 rounded-full bg-white border border-[#e8e2d6] grid place-items-center">
-                                <div class="w-10 h-10 rounded-md bg-[var(--cream)] border border-[#e8e2d6]"></div>
-                            </div>
-                            <div class="col-start-2 row-start-3 place-self-center w-28 h-28 rounded-full bg-white border border-[#e8e2d6] grid place-items-center">
-                                <div class="w-10 h-10 rounded-full bg-[#ff6b6b]"></div>
-                            </div>
-                            <div class="col-start-3 row-start-3 place-self-center w-28 h-28 rounded-full bg-white border border-[#e8e2d6] grid place-items-center">
-                                <div class="w-10 h-10 rounded-md bg-[var(--cream)] border border-[#e8e2d6]"></div>
-                            </div>
-                        </div>
-                        <!-- Person -->
-                        <div class="relative z-10 text-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" class="mx-auto w-44 h-56">
-                                <rect x="50" y="110" width="20" height="40" fill="#2F4C7A"/>
-                                <rect x="30" y="70" width="60" height="60" rx="8" fill="#E55C4A"/>
-                                <circle cx="60" cy="50" r="18" fill="#F3C7A6"/>
-                                <rect x="40" y="130" width="15" height="25" fill="#2F4C7A"/>
-                                <rect x="65" y="130" width="15" height="25" fill="#2F4C7A"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <p class="text-center mt-8 text-lg font-medium text-[#2c2a28]">Let’s help and contribute to a better community!</p>
+            
+            <div class="illustration-section">
+                <div class="illustration-container">
+                    <img src="{{ asset('images/illustration.jpg') }}" alt="Community Contribution Illustration" class="illustration-image">
                 </div>
+                
+                <p class="illustration-text">
+                    Let's help and contribute to a better community!
+                </p>
             </div>
         </div>
+
+        <script>
+            document.querySelector('.password-toggle').addEventListener('click', function() {
+                var input = document.querySelector('input[type="password"]');
+                if (input.type === 'password') {
+                    input.type = 'text';
+                } else {
+                    input.type = 'password';
+                }
+            });
+        </script>
     </body>
-    <script>
-        // simple password toggle (no framework) for demo parity with the mock
-        document.addEventListener('click', function (e) {
-            if (e.target.closest('[aria-label="Toggle password"]')) {
-                const input = document.getElementById('password');
-                input.type = input.type === 'password' ? 'text' : 'password';
-            }
-        });
-    </script>
-    </html>
-
-
+</html>
