@@ -212,6 +212,12 @@
                             <input type="password" class="input-field" name="password" placeholder="Enter your password" required autocomplete="current-password">
                         </div>
                         
+                        <div class="flex items-center justify-between mb-4">
+                            <a href="{{ route('password.request') }}" class="text-sm text-primary-orange hover:underline">
+                                Forgot Your Password?
+                            </a>
+                        </div>
+
                         <button type="submit" class="login-button">Log in</button>
                     </form>
                     
