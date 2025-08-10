@@ -95,16 +95,16 @@
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center">
                     <!-- App Badge -->
-                    <div class="inline-flex items-center px-4 py-2 rounded-full bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-200 mb-8">
-                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="inline-flex items-center px-6 py-3 rounded-full bg-[#1B2B65]/10 dark:bg-[#F4B223]/10 text-[#1B2B65] dark:text-[#F4B223] font-semibold mb-8 text-xl sm:text-2xl">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/>
                         </svg>
-                        Empowering Communities Through Technology
+                        <span class="text-[#F4B223]">Empowering</span> <span class="text-[#1B2B65] dark:text-[#F4B223]">Communities Through Technology</span>
                     </div>
                     
                     <!-- Main Title -->
                     <h1 class="font-['Poppins'] text-5xl sm:text-6xl lg:text-7xl font-extrabold mb-6">
-                        <span class="text-[#F4B223]">A+</span><span class="text-[#1B2B65] dark:text-[#F4B223]">Bayanihan</span>
+                        <span class="text-[#F4B223]">A+ </span><span class="text-[#1B2B65] dark:text-[#F4B223]">Bayanihan App</span>
                     </h1>
                     
                     <!-- Subtitle -->
@@ -113,10 +113,10 @@
                     </p>
                     
                     <!-- Participant Badge -->
-                    <div class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 border border-gray-200 dark:border-gray-700 shadow-sm mb-12">
+                    {{-- <div class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 border border-gray-200 dark:border-gray-700 shadow-sm mb-12">
                         <img src="{{ asset('images/sti.jpg') }}" class="h-8 w-auto mr-3" alt="STI Logo">
-                        <span class="text-lg font-medium text-gray-800 dark:text-gray-200">Project by STI College Santa Rosa</span>
-                    </div>
+                        <span class="text-lg font-medium text-gray-800 dark:text-gray-200">Project by Senior High Students from STI College Santa Rosa</span>
+                    </div> --}}
 
                     <!-- CTA Buttons -->
                     <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
@@ -257,7 +257,7 @@
                     <div class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 border border-gray-200 dark:border-gray-700 shadow-sm">
                         <img src="{{ asset('images/sti.jpg') }}" class="h-10 w-auto mr-4" alt="STI Logo">
                         <div class="text-left">
-                            <p class="text-sm text-gray-600 dark:text-gray-400">A Project by</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">A Project by Senior High Students from</p>
                             <p class="text-lg font-semibold text-gray-900 dark:text-white">STI College Santa Rosa</p>
                         </div>
                     </div>
