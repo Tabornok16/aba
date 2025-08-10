@@ -27,6 +27,10 @@ class User extends Authenticatable
         'age_group_id',
         'mobile_number',
         'is_mobile_verified',
+        'approval_status',
+        'approved_by',
+        'approved_at',
+        'rejection_reason',
     ];
 
     /**
@@ -50,6 +54,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'is_mobile_verified' => 'boolean',
+            'approved_at' => 'datetime',
         ];
     }
 
@@ -140,5 +145,71 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));
+    }
+
+    public function approver()
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
+
+    public function approvedUsers()
+    {
+        return $this->hasMany(User::class, 'approved_by');
+    }
+
+    public function isPending()
+    {
+        return $this->approval_status === 'pending';
+    }
+
+    public function isApproved()
+    {
+        return $this->approval_status === 'approved';
+    }
+
+    public function isRejected()
+    {
+        return $this->approval_status === 'rejected';
+    }
+
+    public function canApproveRole($roleSlug)
+    {
+        if ($this->role->slug === 'manager') {
+            return in_array($roleSlug, ['supervisor', 'staff']);
+        }
+        
+        if ($this->role->slug === 'staff') {
+            return $roleSlug === 'resident';
+        }
+
+        return false;
+    }
+
+    public function approve($approver)
+    {
+        if (!$approver->canApproveRole($this->role->slug)) {
+            throw new \Exception('You do not have permission to approve this user.');
+        }
+
+        $this->update([
+            'approval_status' => 'approved',
+            'approved_by' => $approver->id,
+            'approved_at' => now(),
+            'rejection_reason' => null,
+        ]);
+    }
+
+    public function reject($approver, $reason)
+    {
+        if (!$approver->canApproveRole($this->role->slug)) {
+            throw new \Exception('You do not have permission to reject this user.');
+        }
+
+        $this->update([
+            'approval_status' => 'rejected',
+            'approved_by' => $approver->id,
+            'approved_at' => now(),
+            'rejection_reason' => $reason,
+        ]);
     }
 }

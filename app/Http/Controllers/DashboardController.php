@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -13,6 +13,21 @@ class DashboardController extends Controller
 
     public function index()
     {
+        $user = Auth::user();
+        
+        if ($user->role->slug === 'manager') {
+            return redirect()->route('dashboard.manager');
+        }
+        
+        if ($user->role->slug === 'supervisor') {
+            return redirect()->route('dashboard.supervisor');
+        }
+        
+        if ($user->role->slug === 'staff') {
+            return redirect()->route('dashboard.staff');
+        }
+
+        // For other roles (like residents), show a default dashboard
         return view('dashboard');
     }
 }

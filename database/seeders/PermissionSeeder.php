@@ -85,7 +85,7 @@ class PermissionSeeder extends Seeder
                 'description' => 'Can manage staff members'
             ],
             
-            // User Verification
+            // User Verification and Approval
             [
                 'name' => 'View Pending Verifications',
                 'slug' => 'users.verify.view',
@@ -105,6 +105,28 @@ class PermissionSeeder extends Seeder
                 'name' => 'Manage Verification Process',
                 'slug' => 'users.verify.manage',
                 'description' => 'Can manage the entire verification process and settings'
+            ],
+            
+            // User Registration Approval
+            [
+                'name' => 'Approve Staff Registration',
+                'slug' => 'registration.approve.staff',
+                'description' => 'Can approve staff registration requests'
+            ],
+            [
+                'name' => 'Approve Supervisor Registration',
+                'slug' => 'registration.approve.supervisor',
+                'description' => 'Can approve supervisor registration requests'
+            ],
+            [
+                'name' => 'Approve Resident Registration',
+                'slug' => 'registration.approve.resident',
+                'description' => 'Can approve resident registration requests'
+            ],
+            [
+                'name' => 'View Pending Registrations',
+                'slug' => 'registration.view.pending',
+                'description' => 'Can view pending registration requests'
             ]
         ];
 
@@ -129,7 +151,9 @@ class PermissionSeeder extends Seeder
             'settings.view',
             'reports.view', 'reports.generate',
             'staff.view', 'staff.manage',
-            'users.verify.view', 'users.verify.approve', 'users.verify.reject'
+            'users.verify.view', 'users.verify.approve', 'users.verify.reject',
+            'registration.approve.staff', 'registration.approve.supervisor',
+            'registration.view.pending'
         ])->get();
         $adminManager->permissions()->attach($managerPermissions);
 
@@ -145,7 +169,9 @@ class PermissionSeeder extends Seeder
         $staffPermissions = Permission::whereIn('slug', [
             'users.view',
             'reports.view',
-            'staff.view'
+            'staff.view',
+            'registration.approve.resident',
+            'registration.view.pending'
         ])->get();
         $adminStaff->permissions()->attach($staffPermissions);
     }
