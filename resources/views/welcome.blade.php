@@ -17,18 +17,18 @@
         <meta property="og:url" content="{{ url('/') }}">
         <meta property="og:title" content="ABA - A+ Bayanihan App | Empowering Communities">
         <meta property="og:description" content="Transform community service into a rewarding experience. Join us in building a stronger Santa Rosa City.">
-        <meta property="og:image" content="{{ asset('images/STA_ROSA_LOGO.jpg') }}">
+        <meta property="og:image" content="{{ asset('images/logo.jpg') }}">
 
         <!-- Twitter -->
         <meta property="twitter:card" content="summary_large_image">
         <meta property="twitter:url" content="{{ url('/') }}">
         <meta property="twitter:title" content="ABA - A+ Bayanihan App | Empowering Communities">
         <meta property="twitter:description" content="Transform community service into a rewarding experience. Join us in building a stronger Santa Rosa City.">
-        <meta property="twitter:image" content="{{ asset('images/STA_ROSA_LOGO.jpg') }}">
+        <meta property="twitter:image" content="{{ asset('images/logo.jpg') }}">
 
         <!-- Favicon -->
-        <link rel="icon" type="image/png" href="{{ asset('favicon.ico') }}">
-        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+        <link rel="icon" type="image/jpg" href="{{ asset('images/logo.jpg') }}">
+        <link rel="apple-touch-icon" href="{{ asset('images/logo.jpg') }}">
         
         <!-- Language -->
         <link rel="alternate" href="{{ url('/') }}" hreflang="en-PH">
@@ -36,7 +36,7 @@
         <link rel="alternate" href="{{ url('/') }}" hreflang="x-default">
 
         <!-- Preload Critical Assets -->
-        <link rel="preload" href="{{ asset('images/STA_ROSA_LOGO.jpg') }}" as="image">
+        <link rel="preload" href="{{ asset('images/logo.jpg') }}" as="image">
         <link rel="preload" href="{{ asset('images/sti.jpg') }}" as="image">
         
         <!-- Fonts -->
@@ -44,66 +44,22 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
 
-        <!-- Structured Data -->
-        <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            "name": "A+ Bayanihan App",
-            "description": "A community engagement platform that rewards civic participation in Santa Rosa City",
-            "applicationCategory": "CommunityApplication",
-            "operatingSystem": "All",
-            "offers": {
-                "@type": "Offer",
-                "price": "0",
-                "priceCurrency": "PHP"
-            },
-            "publisher": {
-                "@type": "Organization",
-                "name": "STI College Santa Rosa",
-                "logo": {
-                    "@type": "ImageObject",
-                    "url": "{{ asset('images/sti.jpg') }}"
-                }
-            },
-            "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": "4.8",
-                "ratingCount": "150"
-            },
-            "featureList": [
-                "User Management",
-                "Bantay Barangay",
-                "Bayanihan Connect",
-                "Rewards System",
-                "Scholar Hub",
-                "eSerbisyo"
-            ]
-        }
-        </script>
-
         <!-- Styles / Scripts -->
-        @if (file_exists(public_path('build/manifest.json')))
-            @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @else
-            <script src="http://localhost:5173/@vite/client"></script>
-            <script src="http://localhost:5173/resources/js/app.js"></script>
-            <link rel="stylesheet" href="http://localhost:5173/resources/css/app.css">
-        @endif
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen font-['Inter']">
         <!-- Navigation -->
         <nav class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-700">
             <div class="max-w-7xl flex flex-wrap items-center justify-between mx-auto px-4 py-3">
                 <a href="/" class="flex items-center space-x-6">
-                    <img src="{{ asset('images/STA_ROSA_LOGO.jpg') }}" class="h-16 w-16 object-contain" alt="Santa Rosa Logo">
-                    <span class="font-bold text-xl text-gray-900 dark:text-white">A+ Bayanihan App</span>
+                    <img src="{{ asset('images/logo.jpg') }}" class="h-16 w-16 object-contain" alt="ABA Logo">
+                    <span class="font-bold text-xl"><span class="text-[#F4B223]">A+</span><span class="text-[#1B2B65] dark:text-[#F4B223]">Bayanihan</span></span>
                 </a>
                 <div class="flex items-center gap-4">
                     @if (Route::has('login'))
                         @auth
                             <a href="{{ url('/dashboard') }}" 
-                               class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
+                               class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-[#1B2B65] hover:bg-[#F4B223] rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
                                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                                 </svg>
@@ -116,7 +72,7 @@
                             </a>
                             @if (Route::has('register'))
                                 <a href="{{ route('register') }}" 
-                                   class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
+                                   class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-[#1B2B65] hover:bg-[#F4B223] rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
                                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
                                     </svg>
@@ -125,7 +81,6 @@
                             @endif
                         @endauth
                     @endif
-                </div>
                 </div>
             </div>
         </nav>
@@ -148,8 +103,8 @@
                     </div>
                     
                     <!-- Main Title -->
-                    <h1 class="font-['Poppins'] text-5xl sm:text-6xl lg:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-yellow-500 dark:from-yellow-400 dark:to-yellow-300 mb-6">
-                        A+ Bayanihan App
+                    <h1 class="font-['Poppins'] text-5xl sm:text-6xl lg:text-7xl font-extrabold mb-6">
+                        <span class="text-[#F4B223]">A+</span><span class="text-[#1B2B65] dark:text-[#F4B223]">Bayanihan</span>
                     </h1>
                     
                     <!-- Subtitle -->
@@ -163,52 +118,10 @@
                         <span class="text-lg font-medium text-gray-800 dark:text-gray-200">Project by STI College Santa Rosa</span>
                     </div>
 
-                    <!-- Feature Cards -->
-                    <div class="grid md:grid-cols-3 gap-8 mb-12">
-                        <div class="relative group">
-                            <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-yellow-600 to-yellow-400 opacity-25 group-hover:opacity-50 blur transition duration-200"></div>
-                            <div class="relative p-6 bg-white dark:bg-gray-800 rounded-xl">
-                                <div class="w-12 h-12 flex items-center justify-center rounded-full bg-yellow-100 dark:bg-yellow-900/50 text-yellow-600 dark:text-yellow-400 mb-4 mx-auto">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                    </svg>
-                                </div>
-                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Earn Points</h3>
-                                <p class="text-gray-600 dark:text-gray-300">Get rewarded for your community participation</p>
-                            </div>
-                        </div>
-                        
-                        <div class="relative group">
-                            <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-emerald-600 to-emerald-400 opacity-25 group-hover:opacity-50 blur transition duration-200"></div>
-                            <div class="relative p-6 bg-white dark:bg-gray-800 rounded-xl">
-                                <div class="w-12 h-12 flex items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 mb-4 mx-auto">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                                    </svg>
-                                </div>
-                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Stay Connected</h3>
-                                <p class="text-gray-600 dark:text-gray-300">Share and receive community updates</p>
-                            </div>
-                        </div>
-                        
-                        <div class="relative group">
-                            <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-red-600 to-red-400 opacity-25 group-hover:opacity-50 blur transition duration-200"></div>
-                            <div class="relative p-6 bg-white dark:bg-gray-800 rounded-xl">
-                                <div class="w-12 h-12 flex items-center justify-center rounded-full bg-red-100 dark:bg-red-900/50 text-red-600 dark:text-red-400 mb-4 mx-auto">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                                    </svg>
-                                </div>
-                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Make an Impact</h3>
-                                <p class="text-gray-600 dark:text-gray-300">Help build a safer, stronger community</p>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- CTA Buttons -->
                     <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
                         <a href="{{ route('register') }}" 
-                           class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
+                           class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-[#1B2B65] hover:bg-[#F4B223] rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
                             <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                             </svg>
