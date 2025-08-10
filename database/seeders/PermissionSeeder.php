@@ -83,6 +83,28 @@ class PermissionSeeder extends Seeder
                 'name' => 'Manage Staff',
                 'slug' => 'staff.manage',
                 'description' => 'Can manage staff members'
+            ],
+            
+            // User Verification
+            [
+                'name' => 'View Pending Verifications',
+                'slug' => 'users.verify.view',
+                'description' => 'Can view list of users pending verification'
+            ],
+            [
+                'name' => 'Verify Users',
+                'slug' => 'users.verify.approve',
+                'description' => 'Can approve user verification requests'
+            ],
+            [
+                'name' => 'Reject User Verification',
+                'slug' => 'users.verify.reject',
+                'description' => 'Can reject user verification requests'
+            ],
+            [
+                'name' => 'Manage Verification Process',
+                'slug' => 'users.verify.manage',
+                'description' => 'Can manage the entire verification process and settings'
             ]
         ];
 
@@ -106,7 +128,8 @@ class PermissionSeeder extends Seeder
             'roles.view',
             'settings.view',
             'reports.view', 'reports.generate',
-            'staff.view', 'staff.manage'
+            'staff.view', 'staff.manage',
+            'users.verify.view', 'users.verify.approve', 'users.verify.reject'
         ])->get();
         $adminManager->permissions()->attach($managerPermissions);
 

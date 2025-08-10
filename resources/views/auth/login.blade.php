@@ -209,10 +209,7 @@
                         <input type="email" class="input-field" name="email" placeholder="j.velandres@sunlogistics.com.ph" required>
                         
                         <div class="password-field">
-                            <input type="password" class="input-field" name="password" placeholder="••••••••••••" required>
-                            <svg class="password-toggle" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M10 4C5.5 4 2 7 2 10C2 13 5.5 16 10 16C14.5 16 18 13 18 10C18 7 14.5 4 10 4ZM10 14C7.2 14 5 12.2 5 10C5 7.8 7.2 6 10 6C12.8 6 15 7.8 15 10C15 12.2 12.8 14 10 14ZM10 7.5C8.1 7.5 6.5 8.7 6.5 10C6.5 11.3 8.1 12.5 10 12.5C11.9 12.5 13.5 11.3 13.5 10C13.5 8.7 11.9 7.5 10 7.5Z" fill="currentColor"/>
-                            </svg>
+                            <input type="password" class="input-field" name="password" placeholder="Enter your password" required autocomplete="current-password">
                         </div>
                         
                         <button type="submit" class="login-button">Log in</button>

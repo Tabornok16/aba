@@ -50,7 +50,7 @@ class RegisterController extends Controller
         Auth::login($user);
 
         // Send OTP immediately after registration
-        $otp = $user->sendOTP();
+        $otp = $user->sendSMSOTP(); // Using SMS OTP for mobile verification
         session()->flash('otp_code', $otp->code); // For testing purposes
 
         return redirect()->route('verify.otp')
