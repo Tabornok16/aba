@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>A+Bayanihan</title>
+        <title>A+ Bayanihan App</title>
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
@@ -197,12 +197,12 @@
                     </svg>
                     <span class="logo-text">
                         <span style="color: #F8B803;">A+</span>
-                        <span style="color: #213D6B;">Bayanihan</span>
+                        <span style="color: #213D6B;">Bayanihan App</span>
                     </span>
                 </div>
                 
                 <div class="form-container">
-                    <h1>Welcome, Citizen!</h1>
+                    <h1>Welcome, Rosenian!</h1>
                     
                     <form method="POST" action="/login">
                         @csrf
