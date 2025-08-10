@@ -3,16 +3,84 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="IGNITE Hackathon 2024 - A City-wide Innovation Challenge by the City Youth Development Office of Santa Rosa">
-
         <title>ABA - A+ Bayanihan App | Empowering Communities, Rewarding Civic Engagement</title>
+        
+        <!-- SEO Meta Tags -->
         <meta name="description" content="ABA transforms community service into a rewarding experience through a point-based system. Join us in building a stronger, smarter, and more connected Santa Rosa City.">
         <meta name="keywords" content="Bayanihan app Santa Rosa, civic engagement Philippines, barangay rewards system, community point system, youth participation app, Santa Rosa Laguna app">
+        <meta name="robots" content="index, follow">
+        <meta name="author" content="STI College Santa Rosa">
+        <link rel="canonical" href="{{ url('/') }}">
 
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{ url('/') }}">
+        <meta property="og:title" content="ABA - A+ Bayanihan App | Empowering Communities">
+        <meta property="og:description" content="Transform community service into a rewarding experience. Join us in building a stronger Santa Rosa City.">
+        <meta property="og:image" content="{{ asset('images/STA_ROSA_LOGO.jpg') }}">
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:url" content="{{ url('/') }}">
+        <meta property="twitter:title" content="ABA - A+ Bayanihan App | Empowering Communities">
+        <meta property="twitter:description" content="Transform community service into a rewarding experience. Join us in building a stronger Santa Rosa City.">
+        <meta property="twitter:image" content="{{ asset('images/STA_ROSA_LOGO.jpg') }}">
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="{{ asset('favicon.ico') }}">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+        
+        <!-- Language -->
+        <link rel="alternate" href="{{ url('/') }}" hreflang="en-PH">
+        <link rel="alternate" href="{{ url('/') }}" hreflang="tl">
+        <link rel="alternate" href="{{ url('/') }}" hreflang="x-default">
+
+        <!-- Preload Critical Assets -->
+        <link rel="preload" href="{{ asset('images/STA_ROSA_LOGO.jpg') }}" as="image">
+        <link rel="preload" href="{{ asset('images/sti.jpg') }}" as="image">
+        
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+
+        <!-- Structured Data -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "A+ Bayanihan App",
+            "description": "A community engagement platform that rewards civic participation in Santa Rosa City",
+            "applicationCategory": "CommunityApplication",
+            "operatingSystem": "All",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "PHP"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "STI College Santa Rosa",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "{{ asset('images/sti.jpg') }}"
+                }
+            },
+            "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.8",
+                "ratingCount": "150"
+            },
+            "featureList": [
+                "User Management",
+                "Bantay Barangay",
+                "Bayanihan Connect",
+                "Rewards System",
+                "Scholar Hub",
+                "eSerbisyo"
+            ]
+        }
+        </script>
 
         <!-- Styles / Scripts -->
         @if (file_exists(public_path('build/manifest.json')))
@@ -57,6 +125,7 @@
                             @endif
                         @endauth
                     @endif
+                </div>
                 </div>
             </div>
         </nav>
