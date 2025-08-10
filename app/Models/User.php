@@ -31,6 +31,8 @@ class User extends Authenticatable
         'approved_by',
         'approved_at',
         'rejection_reason',
+        'voter_verified',
+        'voter_id',
     ];
 
     /**
@@ -55,6 +57,7 @@ class User extends Authenticatable
             'password' => 'hashed',
             'is_mobile_verified' => 'boolean',
             'approved_at' => 'datetime',
+            'voter_verified' => 'boolean',
         ];
     }
 

@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/users/{user}/reject', [ManagerDashboardController::class, 'reject'])->name('users.reject');
     Route::post('/residents/{user}/approve', [StaffDashboardController::class, 'approve'])->name('residents.approve');
     Route::post('/residents/{user}/reject', [StaffDashboardController::class, 'reject'])->name('residents.reject');
+    Route::post('/users/{user}/verify-voter', [StaffDashboardController::class, 'verifyVoter'])->name('users.verify-voter');
 
     // Redirect based on role
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

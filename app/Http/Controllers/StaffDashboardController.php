@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Voter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -66,6 +67,50 @@ class StaffDashboardController extends Controller
             return redirect()->back()->with('success', 'Resident rejected successfully.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function verifyVoter(Request $request, User $user)
+    {
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'middle_name' => 'nullable|string|max:255',
+        ]);
+
+        try {
+            $voter = Voter::verifyVoter(
+                $request->first_name,
+                $request->last_name,
+                $request->middle_name
+            );
+
+            if ($voter) {
+                $user->update([
+                    'voter_verified' => true,
+                    'voter_id' => $voter->voter_id
+                ]);
+                
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Voter verified successfully',
+                    'voter' => [
+                        'name' => $voter->full_name,
+                        'precinct_number' => $voter->precinct_number,
+                        'address' => $voter->address
+                    ]
+                ]);
+            }
+
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Voter not found in the database'
+            ], 404);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
         }
     }
 }

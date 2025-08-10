@@ -15,6 +15,7 @@
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Voter Status</th>
                             @if($showActions)
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                             @endif
@@ -34,11 +35,25 @@
                                         {{ ucfirst($user->approval_status) }}
                                     </span>
                                 </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                        @if($user->voter_verified) bg-green-100 text-green-800 
+                                        @else bg-gray-100 text-gray-800 @endif">
+                                        {{ $user->voter_verified ? 'Verified' : 'Not Verified' }}
+                                    </span>
+                                </td>
                                 @if($showActions && $user->approval_status === 'pending')
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        @if(!$user->voter_verified)
+                                            <button onclick="showVoterVerificationModal('{{ $user->id }}')" class="text-blue-600 hover:text-blue-900 mr-3">
+                                                Verify Voter
+                                            </button>
+                                        @endif
                                         <form action="{{ route('users.approve', $user) }}" method="POST" class="inline">
                                             @csrf
-                                            <button type="submit" class="text-green-600 hover:text-green-900 mr-3">Approve</button>
+                                            <button type="submit" class="text-green-600 hover:text-green-900 mr-3" {{ !$user->voter_verified ? 'disabled' : '' }}>
+                                                Approve
+                                            </button>
                                         </form>
                                         <button onclick="showRejectModal('{{ $user->id }}')" class="text-red-600 hover:text-red-900">
                                             Reject
@@ -55,6 +70,9 @@
 </div>
 
 @if($showActions)
+    <!-- Voter Verification Modal -->
+    <x-voter-verification-modal />
+
     <!-- Reject Modal -->
     <div id="rejectModal" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
