@@ -124,7 +124,7 @@
             
             .login-button:hover {
                 opacity: 0.9;
-            }
+            }ifference?
             
             .register-text {
                 margin-top: 24px;
