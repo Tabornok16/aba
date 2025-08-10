@@ -33,6 +33,9 @@ class User extends Authenticatable
         'rejection_reason',
         'voter_verified',
         'voter_id',
+        'registration_date',
+        'account_expiry',
+        'is_temporary',
     ];
 
     /**
@@ -58,6 +61,9 @@ class User extends Authenticatable
             'is_mobile_verified' => 'boolean',
             'approved_at' => 'datetime',
             'voter_verified' => 'boolean',
+            'registration_date' => 'datetime',
+            'account_expiry' => 'datetime',
+            'is_temporary' => 'boolean',
         ];
     }
 
@@ -213,6 +219,28 @@ class User extends Authenticatable
             'approved_by' => $approver->id,
             'approved_at' => now(),
             'rejection_reason' => $reason,
+        ]);
+    }
+
+    public function isTemporary()
+    {
+        return $this->is_temporary;
+    }
+
+    public function isExpired()
+    {
+        if (!$this->is_temporary) {
+            return false;
+        }
+        return $this->account_expiry && now()->gt($this->account_expiry);
+    }
+
+    public function initializeTemporaryAccount()
+    {
+        $this->update([
+            'is_temporary' => true,
+            'registration_date' => now(),
+            'account_expiry' => now()->addDays(3),
         ]);
     }
 }

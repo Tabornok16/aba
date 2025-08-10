@@ -24,7 +24,7 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'username' => ['required', 'string', 'max:255', 'unique:users,name'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Password::defaults()],
             'role_id' => ['required', 'exists:roles,id'],
@@ -45,7 +45,14 @@ class RegisterController extends Controller
             'age_group_id' => $request->age_group_id,
             'mobile_number' => $request->mobile_number,
             'is_mobile_verified' => false,
+            'approval_status' => 'pending',
         ]);
+
+        // Initialize temporary account for residents
+        $role = Role::find($request->role_id);
+        if ($role->slug === 'resident') {
+            $user->initializeTemporaryAccount();
+        }
 
         Auth::login($user);
 
