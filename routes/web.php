@@ -13,6 +13,15 @@ use App\Http\Controllers\SupervisorDashboardController;
 use App\Http\Controllers\StaffDashboardController;
 use App\Http\Controllers\TemporaryDashboardController;
 use App\Http\Controllers\ResidentController;
+use App\Http\Controllers\PointController;
+use App\Http\Controllers\CityOfficialController;
+use App\Http\Controllers\RankController;
+use App\Http\Controllers\LeaderboardController;
+use App\Http\Controllers\PublicAdvisoryController;
+use App\Http\Controllers\BadgeController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ReportCategoryController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
@@ -56,6 +65,43 @@ Route::middleware('auth')->group(function () {
     // Resident routes
     Route::resource('residents', ResidentController::class);
     Route::post('/residents/{resident}/validate', [ResidentController::class, 'validate_registration'])->name('residents.validate');
+
+    // Points System Routes
+    Route::get('/points', [PointController::class, 'index'])->name('points.index');
+    Route::post('/points/redeem', [PointController::class, 'redeem'])->name('points.redeem');
+    Route::get('/points/history', [PointController::class, 'history'])->name('points.history');
+    Route::get('/points/leaderboard', [PointController::class, 'leaderboard'])->name('points.leaderboard');
+
+    // City Officials Routes
+    Route::resource('city-officials', CityOfficialController::class);
+
+    // Rank System Routes
+    Route::resource('ranks', RankController::class);
+
+    // Leaderboard Routes
+    Route::get('/leaderboard', [LeaderboardController::class, 'index'])->name('leaderboard.index');
+    Route::get('/leaderboard/overall', [LeaderboardController::class, 'overall'])->name('leaderboard.overall');
+    Route::get('/leaderboard/monthly', [LeaderboardController::class, 'monthly'])->name('leaderboard.monthly');
+
+    // Public Advisory Routes
+    Route::resource('public-advisories', PublicAdvisoryController::class);
+
+    // Badge Routes
+    Route::resource('badges', BadgeController::class);
+
+    // Report Routes
+    Route::get('/reports/my-reports', [ReportController::class, 'myReports'])->name('reports.my-reports');
+    Route::get('/reports/manage', [ReportController::class, 'manage'])->name('reports.manage');
+    Route::post('/reports/{report}/verify', [ReportController::class, 'verify'])->name('reports.verify');
+    Route::post('/reports/{report}/resolve', [ReportController::class, 'resolve'])->name('reports.resolve');
+    Route::resource('reports', ReportController::class);
+    Route::resource('report-categories', ReportCategoryController::class);
+
+    // Notification Routes
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::post('/notifications/{id}/mark-read', [NotificationController::class, 'markAsRead'])->name('notifications.mark-read');
+    Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.mark-all-read');
+    Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
 
     Route::post('/logout', function () {
         Auth::logout();

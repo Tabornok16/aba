@@ -17,6 +17,9 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             AgeGroupSeeder::class,
             PermissionSeeder::class,
+            RankSeeder::class,
+            BadgeSeeder::class,
+            ReportCategorySeeder::class,
         ]);
 
         // Create a super admin user

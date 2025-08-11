@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\OTPNotification;
 use App\Notifications\ResetPasswordNotification;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -242,5 +244,64 @@ class User extends Authenticatable
             'registration_date' => now(),
             'account_expiry' => now()->addDays(3),
         ]);
+    }
+
+    public function points(): HasMany
+    {
+        return $this->hasMany(Point::class);
+    }
+
+    public function badges(): BelongsToMany
+    {
+        return $this->belongsToMany(Badge::class, 'user_badges')
+            ->withPivot('earned_at')
+            ->withTimestamps();
+    }
+
+    public function ranks(): BelongsToMany
+    {
+        return $this->belongsToMany(Rank::class, 'user_ranks')
+            ->withPivot('current_exp')
+            ->withTimestamps();
+    }
+
+    public function reports(): HasMany
+    {
+        return $this->hasMany(Report::class);
+    }
+
+    public function verifiedReports(): HasMany
+    {
+        return $this->hasMany(Report::class, 'verified_by');
+    }
+
+    public function getTotalPointsAttribute(): float
+    {
+        return $this->points()
+            ->where('type', 'earned')
+            ->sum('amount') - 
+            $this->points()
+            ->where('type', 'redeemed')
+            ->sum('amount');
+    }
+
+    public function getCurrentRankAttribute(): ?Rank
+    {
+        return $this->ranks()
+            ->orderByDesc('required_exp')
+            ->where('required_exp', '<=', $this->ranks()->first()?->pivot->current_exp ?? 0)
+            ->first();
+    }
+
+    public function getCurrentExpAttribute(): int
+    {
+        return $this->ranks()->first()?->pivot->current_exp ?? 0;
+    }
+
+    public function getNextRankAttribute(): ?Rank
+    {
+        return Rank::where('required_exp', '>', $this->getCurrentExpAttribute())
+            ->orderBy('required_exp')
+            ->first();
     }
 }
