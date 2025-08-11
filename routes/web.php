@@ -12,6 +12,7 @@ use App\Http\Controllers\ManagerDashboardController;
 use App\Http\Controllers\SupervisorDashboardController;
 use App\Http\Controllers\StaffDashboardController;
 use App\Http\Controllers\TemporaryDashboardController;
+use App\Http\Controllers\ResidentController;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
@@ -51,6 +52,10 @@ Route::middleware('auth')->group(function () {
     // Redirect based on role
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/temporary', [TemporaryDashboardController::class, 'index'])->name('temporary.dashboard');
+
+    // Resident routes
+    Route::resource('residents', ResidentController::class);
+    Route::post('/residents/{resident}/validate', [ResidentController::class, 'validate_registration'])->name('residents.validate');
 
     Route::post('/logout', function () {
         Auth::logout();

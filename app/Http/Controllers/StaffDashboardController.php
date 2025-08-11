@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Voter;
+use App\Models\Resident;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,6 +20,7 @@ class StaffDashboardController extends Controller
     {
         $residentRole = Role::where('slug', 'resident')->first();
 
+        // Get user registrations
         $pendingResidents = User::where('role_id', $residentRole->id)
             ->where('approval_status', 'pending')
             ->with(['role', 'approver'])
@@ -39,10 +41,31 @@ class StaffDashboardController extends Controller
             ->latest()
             ->get();
 
+        // Get resident validations
+        $pendingValidations = Resident::where('status', 'pending')
+            ->with('validator')
+            ->latest()
+            ->get();
+
+        $approvedValidations = Resident::where('status', 'approved')
+            ->where('validated_by', Auth::id())
+            ->with('validator')
+            ->latest()
+            ->get();
+
+        $declinedValidations = Resident::where('status', 'declined')
+            ->where('validated_by', Auth::id())
+            ->with('validator')
+            ->latest()
+            ->get();
+
         return view('dashboard.staff', compact(
             'pendingResidents',
             'approvedResidents',
-            'rejectedResidents'
+            'rejectedResidents',
+            'pendingValidations',
+            'approvedValidations',
+            'declinedValidations'
         ));
     }
 
