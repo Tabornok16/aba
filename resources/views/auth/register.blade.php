@@ -99,7 +99,7 @@
                 </div>
 
                 <div>
-                    <button type="submit" class="w-full bg-coral-500 text-white py-3 rounded-lg font-semibold hover:bg-coral-600 transition duration-200">
+                    <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-200">
                         Sign Up
                     </button>
                 </div>
@@ -107,7 +107,7 @@
 
             <p class="mt-6 text-center text-gray-600">
                 Already have an account? 
-                <a href="{{ route('login') }}" class="text-coral-500 font-semibold hover:text-coral-600 transition duration-200">Log in here</a>
+                <a href="{{ route('login') }}" class="text-blue-600 font-semibold hover:text-blue-700 transition duration-200">Log in here</a>
             </p>
         </div>
 
