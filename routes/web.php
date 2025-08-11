@@ -58,6 +58,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/residents/{user}/reject', [StaffDashboardController::class, 'reject'])->name('residents.reject');
     Route::post('/users/{user}/verify-voter', [StaffDashboardController::class, 'verifyVoter'])->name('users.verify-voter');
 
+    // Resident Validation Routes
+    Route::patch('/resident-validations/{validation}/validate', [StaffDashboardController::class, 'validate'])->name('resident-validations.validate');
+    Route::patch('/resident-validations/{validation}/reject', [StaffDashboardController::class, 'reject'])->name('resident-validations.reject');
+
     // Redirect based on role
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/temporary', [TemporaryDashboardController::class, 'index'])->name('temporary.dashboard');

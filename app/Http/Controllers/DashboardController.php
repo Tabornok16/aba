@@ -9,6 +9,8 @@ use App\Services\RankService;
 use App\Services\ReportService;
 use App\Models\PublicAdvisory;
 use App\Models\CityOfficial;
+use App\Models\ResidentValidation;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
