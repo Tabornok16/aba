@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\ManagerDashboardController;
 use App\Http\Controllers\SupervisorDashboardController;
 use App\Http\Controllers\StaffDashboardController;
@@ -32,6 +33,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/verify/otp', [OTPController::class, 'verifyOTP']);
     Route::get('/otp/send', [OTPController::class, 'sendOTP'])->name('otp.send');
     // Role-specific dashboards
+    Route::get('/dashboard/admin', [AdminDashboardController::class, 'index'])->name('dashboard.admin');
+    Route::post('/admin/managers/{user}/approve', [AdminDashboardController::class, 'approve'])->name('admin.managers.approve');
+    Route::post('/admin/managers/{user}/reject', [AdminDashboardController::class, 'reject'])->name('admin.managers.reject');
+    
     Route::get('/dashboard/manager', [ManagerDashboardController::class, 'index'])->name('dashboard.manager');
     Route::get('/dashboard/supervisor', [SupervisorDashboardController::class, 'index'])->name('dashboard.supervisor');
     Route::get('/dashboard/staff', [StaffDashboardController::class, 'index'])->name('dashboard.staff');

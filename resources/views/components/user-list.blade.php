@@ -49,13 +49,13 @@
                                                 Verify Voter
                                             </button>
                                         @endif
-                                        <form action="{{ route('users.approve', $user) }}" method="POST" class="inline">
+                                        <form action="{{ $user->role->slug === 'manager' ? route('admin.managers.approve', $user) : route('users.approve', $user) }}" method="POST" class="inline">
                                             @csrf
-                                            <button type="submit" class="text-green-600 hover:text-green-900 mr-3" {{ !$user->voter_verified ? 'disabled' : '' }}>
+                                            <button type="submit" class="text-green-600 hover:text-green-900 mr-3" {{ !$user->voter_verified && $user->role->slug !== 'manager' ? 'disabled' : '' }}>
                                                 Approve
                                             </button>
                                         </form>
-                                        <button onclick="showRejectModal('{{ $user->id }}')" class="text-red-600 hover:text-red-900">
+                                        <button onclick="showRejectModal('{{ $user->id }}', '{{ $user->role->slug }}')" class="text-red-600 hover:text-red-900">
                                             Reject
                                         </button>
                                     </td>
@@ -107,10 +107,10 @@
     </div>
 
     <script>
-        function showRejectModal(userId) {
+        function showRejectModal(userId, roleSlug) {
             const modal = document.getElementById('rejectModal');
             const form = document.getElementById('rejectForm');
-            form.action = `/users/${userId}/reject`;
+            form.action = roleSlug === 'manager' ? `/admin/managers/${userId}/reject` : `/users/${userId}/reject`;
             modal.classList.remove('hidden');
         }
 
